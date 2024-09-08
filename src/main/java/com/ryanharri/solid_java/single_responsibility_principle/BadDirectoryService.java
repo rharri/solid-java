@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+// Single Responsibility Principle - Code that had only one reason to change
 public final class BadDirectoryService {
 
     private static final int LINE_LENGTH = 80;
@@ -28,7 +29,7 @@ public final class BadDirectoryService {
         return new BadDirectoryService(path);
     }
 
-    // breaks SRP, this method is responsible for sorting and formatting of the directory listing
+    // Breaks SRP, this method is responsible for sorting and formatting of the directory listing
     public String list() {
         StringBuilder directoryListing = new StringBuilder();
 
@@ -47,7 +48,7 @@ public final class BadDirectoryService {
 
             while (fromIndex < listSize) {
                 if (toIndex >= listSize) {
-                    // bound toIndex to the last index
+                    // Bound toIndex to the last index
                     toIndex = listSize % toIndex == 0 ? listSize : listSize - 1;
                 }
 
@@ -57,7 +58,7 @@ public final class BadDirectoryService {
 
                 directoryListing.append(String.format("%n"));
 
-                // slide to the next 'window'
+                // Slide to the next 'window'
                 fromIndex = toIndex;
                 toIndex += tokensPerRow;
             }

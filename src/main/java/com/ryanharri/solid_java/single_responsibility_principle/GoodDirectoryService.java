@@ -68,7 +68,7 @@ public final class GoodDirectoryService {
 
         while (fromIndex < listSize) {
             if (toIndex >= listSize) {
-                // bound toIndex to the last index
+                // Bound toIndex to the last index
                 toIndex = listSize % toIndex == 0 ? listSize : listSize - 1;
             }
 
@@ -76,10 +76,10 @@ public final class GoodDirectoryService {
                 directoryListing.append(String.format("%-" + (COLUMN_WIDTH + PADDING) + "s", path));
             }
 
-            // line break for next row
+            // Line break for next row
             directoryListing.append(String.format("%n"));
 
-            // slide to the next 'window'
+            // Slide to the next 'window'
             fromIndex = toIndex;
             toIndex += tokensPerRow;
         }
@@ -93,7 +93,7 @@ public final class GoodDirectoryService {
             directoryListing.append(String.format("%s%n", path.toFile().getName()));
         }
 
-        // remove last line break
+        // Remove last line break
         directoryListing.replace(directoryListing.length() - 1, directoryListing.length(), "");
 
         return directoryListing.toString();
