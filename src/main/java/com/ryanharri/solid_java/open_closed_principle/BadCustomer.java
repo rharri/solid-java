@@ -3,7 +3,7 @@ package com.ryanharri.solid_java.open_closed_principle;
 // Open Closed Principle - Open for extension, closed for modification
 // Change what modules do, without changing the source code of the module
 public record BadCustomer(PhoneNumber phoneNumber, String emailAddress,
-                          ContactMethod preferredContactMethod) implements Customer {
+                          ContactMethod preferredContactMethod) {
 
     // Violates OCP, this method must be modified if new contact methods become available
     public void contact(String message) {
