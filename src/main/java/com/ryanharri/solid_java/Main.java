@@ -18,18 +18,12 @@ public class Main {
     public static void main(String[] args) throws IOException {
         configureLogger();
 
-        // SRP example
-        Path directory = Path.of(System.getProperty("user.home"), "Projects", "jdk");
+        srpExample();
 
-        String dirList1 = BadDirectoryService.getInstance(directory.toString()).list();
-        System.out.print(dirList1);
+        ocpExample();
+    }
 
-        System.out.printf("%n");
-
-        GoodDirectoryService goodDirectoryService = GoodDirectoryService.getInstance(directory.toString());
-        String dirList2 = goodDirectoryService.list(goodDirectoryService.sort(null), ListingFormat.COLUMN);
-        System.out.print(dirList2);
-
+    private static void ocpExample() {
         // OCP example
         List<BadCustomer> badCustomers = new ArrayList<>();
         PhoneNumber phoneNumber = new PhoneNumber("555", "555-5555");
@@ -50,6 +44,20 @@ public class Main {
         for (GoodCustomer c : goodCustomers) {
             c.contact("GoodCustomer: payment due");
         }
+    }
+
+    private static void srpExample() {
+        // SRP example
+        Path directory = Path.of(System.getProperty("user.home"), "Projects", "jdk");
+
+        String dirList1 = BadDirectoryService.getInstance(directory.toString()).list();
+        System.out.print(dirList1);
+
+        System.out.printf("%n");
+
+        GoodDirectoryService goodDirectoryService = GoodDirectoryService.getInstance(directory.toString());
+        String dirList2 = goodDirectoryService.list(goodDirectoryService.sort(null), ListingFormat.COLUMN);
+        System.out.print(dirList2);
     }
 
     private static void configureLogger() throws IOException {
