@@ -1,5 +1,6 @@
 package com.ryanharri.solid_java;
 
+import com.ryanharri.solid_java.dependency_inversion_principle.*;
 import com.ryanharri.solid_java.interface_segregation_principle.ComicBookReader;
 import com.ryanharri.solid_java.interface_segregation_principle.EBookReader;
 import com.ryanharri.solid_java.interface_segregation_principle.KindleReader;
@@ -14,10 +15,7 @@ import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -30,6 +28,29 @@ public class Main {
         lspExample(); // L
 
         ispExample(); // I
+
+        dipExample(); // D
+    }
+
+    private static void dipExample() {
+        List<LogEntry> logEntries = List.of(
+                new LogEntry(Level.INFO, "Loading class", "2024-09-09"),
+                new LogEntry(Level.WARNING, "Class contains invalid metadata", "2024-09-09"),
+                new LogEntry(Level.SEVERE, "Class failed to load", "2024-09-09")
+        );
+
+        for (LogEntry entry : logEntries) {
+            BadLog.print(entry);
+        }
+
+        // Possible solution
+        for (LogEntry entry : logEntries) {
+            Log.print(entry, new LongDateParser("yyyy-MM-dd"));
+        }
+
+        for (LogEntry entry : logEntries) {
+            Log.print(entry, new ShortDateParser("yyyy-MM-dd"));
+        }
     }
 
     private static void ispExample() {
