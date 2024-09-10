@@ -42,14 +42,14 @@ public abstract class EBookReader {
             return;
         }
         currentPage -= 1;
-    };
+    }
 
     public void nextPage() {
         if (currentPage >= totalPages) {
             return;
         }
         currentPage += 1;
-    };
+    }
 
     public abstract void playSound();
 
