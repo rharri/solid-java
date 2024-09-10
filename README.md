@@ -13,3 +13,12 @@ Heuristics
 - Does my subclass throw a new exception that is not expected from existing class hierarchy?
 - Does my interface have extraneous methods that are not required by all implementing classes?
 - Does my class or method depend on a concrete implementation that is subject to change?
+
+*Other considerations...*
+
+- Is my code reasonably efficient?
+- Is my code reusable?
+- Are the types of my variables, constructor and method arguments as general as possible?
+- Is inheritance really necessary or can I use composition?
+- How many other classes need to be ported for me to reuse a single class?
+- Does this code vary for each instance; if so, can it be encapsulated?
