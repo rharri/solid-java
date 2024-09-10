@@ -15,7 +15,7 @@ public class CurrencyExchangerImpl extends AbstractCurrencyExchanger implements 
             throw new IllegalArgumentException("Amount to exchange can't be less than or equal to zero");
         }
 
-        if (!RATE_TABLE.containsKey(exchange)) {
+        if (RateTable.getInstance().noMatch(exchange)) {
             throw new IllegalArgumentException("Exchange is not supported");
         }
 
@@ -32,11 +32,12 @@ public class CurrencyExchangerImpl extends AbstractCurrencyExchanger implements 
 
     @Override
     public BigDecimal getCustomerRate(SupportedExchange exchange) {
-        ExchangeRate exchangeRate = RATE_TABLE.get(exchange);
+        ExchangeRate exchangeRate = RateTable.getInstance().get(exchange);
 
         BigDecimal customerRate = exchangeRate.rate();
-        if (exchangeRate.rate().compareTo(DEFAULT_MARGIN) > 0) {
-            BigDecimal marginAmount = exchangeRate.rate().multiply(DEFAULT_MARGIN);
+        BigDecimal defaultMargin = RateTable.getInstance().getDefaultMargin();
+        if (exchangeRate.rate().compareTo(defaultMargin) > 0) {
+            BigDecimal marginAmount = exchangeRate.rate().multiply(defaultMargin);
             customerRate = exchangeRate.rate().add(marginAmount);
         }
         return customerRate;

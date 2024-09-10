@@ -15,7 +15,7 @@ public class LargeCurrencyExchanger extends AbstractCurrencyExchanger implements
             throw new IllegalArgumentException("Amount to exchange can't be less than or equal to zero");
         }
 
-        if (!RATE_TABLE.containsKey(exchange)) {
+        if (RateTable.getInstance().noMatch(exchange)) {
             throw new IllegalArgumentException("Exchange is not supported");
         }
 
@@ -38,6 +38,6 @@ public class LargeCurrencyExchanger extends AbstractCurrencyExchanger implements
     @Override
     public BigDecimal getCustomerRate(SupportedExchange exchange) {
         // No margin on large exchanges
-        return RATE_TABLE.get(exchange).rate();
+        return RateTable.getInstance().get(exchange).rate();
     }
 }

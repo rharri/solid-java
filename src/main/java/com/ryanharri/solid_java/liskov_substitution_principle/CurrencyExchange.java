@@ -2,24 +2,8 @@ package com.ryanharri.solid_java.liskov_substitution_principle;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Currency;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 public class CurrencyExchange {
-
-    private static final BigDecimal DEFAULT_MARGIN = new BigDecimal("0.05");
-    protected static final Map<SupportedExchange, ExchangeRate> RATE_TABLE = new HashMap<>();
-
-    static {
-        RATE_TABLE.put(
-                SupportedExchange.USD_TO_JPY,
-                new ExchangeRate(
-                        Currency.getInstance(Locale.US),
-                        Currency.getInstance(Locale.JAPAN),
-                        new BigDecimal("137.0975")));
-    }
 
     public BigDecimal makeExchange(BigDecimal amountToExchange, SupportedExchange exchange) {
         if (amountToExchange == null) {
@@ -30,7 +14,7 @@ public class CurrencyExchange {
             throw new IllegalArgumentException("Amount to exchange can't be less than or equal to zero");
         }
 
-        if (!RATE_TABLE.containsKey(exchange)) {
+        if (RateTable.getInstance().noMatch(exchange)) {
             throw new IllegalArgumentException("Exchange is not supported");
         }
 
@@ -46,11 +30,12 @@ public class CurrencyExchange {
     }
 
     protected BigDecimal getCustomerRate(SupportedExchange exchange) {
-        ExchangeRate exchangeRate = RATE_TABLE.get(exchange);
+        ExchangeRate exchangeRate = RateTable.getInstance().get(exchange);
 
         BigDecimal customerRate = exchangeRate.rate();
-        if (exchangeRate.rate().compareTo(DEFAULT_MARGIN) > 0) {
-            BigDecimal marginAmount = exchangeRate.rate().multiply(DEFAULT_MARGIN);
+        BigDecimal defaultMargin = RateTable.getInstance().getDefaultMargin();
+        if (exchangeRate.rate().compareTo(defaultMargin) > 0) {
+            BigDecimal marginAmount = exchangeRate.rate().multiply(defaultMargin);
             customerRate = exchangeRate.rate().add(marginAmount);
         }
         return customerRate;
