@@ -1,5 +1,8 @@
 package com.ryanharri.solid_java;
 
+import com.ryanharri.solid_java.interface_segregation_principle.ComicBookReader;
+import com.ryanharri.solid_java.interface_segregation_principle.EBookReader;
+import com.ryanharri.solid_java.interface_segregation_principle.KindleReader;
 import com.ryanharri.solid_java.liskov_substitution_principle.*;
 import com.ryanharri.solid_java.open_closed_principle.*;
 import com.ryanharri.solid_java.single_responsibility_principle.BadDirectoryService;
@@ -25,6 +28,19 @@ public class Main {
         ocpExample(); // O
 
         lspExample(); // L
+
+        ispExample(); // I
+    }
+
+    private static void ispExample() {
+        // ISP example
+        EBookReader comicBookReader = new ComicBookReader(1024);
+        comicBookReader.playSound();
+        comicBookReader.playVideo();
+
+        EBookReader kindleReader = new KindleReader(1024);
+        kindleReader.playSound();
+        kindleReader.playVideo();
     }
 
     private static void lspExample() {
