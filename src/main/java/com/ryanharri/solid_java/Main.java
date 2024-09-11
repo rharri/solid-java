@@ -7,8 +7,8 @@ import com.ryanharri.solid_java.interface_segregation_principle.KindleReader;
 import com.ryanharri.solid_java.liskov_substitution_principle.*;
 import com.ryanharri.solid_java.open_closed_principle.*;
 import com.ryanharri.solid_java.single_responsibility_principle.BadDirectoryService;
+import com.ryanharri.solid_java.single_responsibility_principle.ColumnFormat;
 import com.ryanharri.solid_java.single_responsibility_principle.GoodDirectoryService;
-import com.ryanharri.solid_java.single_responsibility_principle.ListingFormat;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -129,7 +129,7 @@ public class Main {
 
         // Possible solution
         GoodDirectoryService goodDirectoryService = GoodDirectoryService.getInstance(directory.toString());
-        String dirList2 = goodDirectoryService.list(goodDirectoryService.sort(null), ListingFormat.COLUMN);
+        String dirList2 = goodDirectoryService.list(goodDirectoryService.sort(null), new ColumnFormat());
         System.out.print(dirList2);
     }
 
